@@ -1,6 +1,42 @@
 \documentclass{article}
-
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\geometry{a4paper}
+\usepackage[english]{babel}
+\title{Quantum Computing}
+\author{Marta Bubel Ewelina Kolba}
+\date{21-05-2022}
 \begin{document}
-First document. This is a simple example, with no 
-extra parameters or packages included.
+\maketitle
+Implementation a simple version of various logic functions and the Deutsch two qubit quantum algorithm.
+\newpage
+%spis tresci--------------------------------------------------------
+\renewcommand{\contentsname}{Table of contents}
+\tableofcontents
+\newpage
+\section{Introduction to Quantum Computing}
+\newpage
+\section{Logic gates}
+\newpage
+\section{Deutsch algorithm}
+%bibligrafia
+\newpage
+%\section*{Bibliography}
+\begin{thebibliography}{x}
+  % \bibitem{<biblabel>} <citation>
+  \bibitem{citeA}
+    {\scshape Author, A}, {\itshape A title}, Journal of So-and-So, 2000.
+  \bibitem{citeB}
+    {\scshape Someone, B}, {\itshape Another title}, Book of books, 1900.
+\addcontentsline{toc}{section}{References}
+\end{thebibliography}
 \end{document}
