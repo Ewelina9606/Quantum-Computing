@@ -4,6 +4,8 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage{mdframed}
 \graphicspath{ {pictures/} }
 \hypersetup{
     colorlinks,
@@ -13,7 +15,6 @@
     urlcolor=black
 }
 \geometry{a4paper}
-\usepackage[english]{babel}
 \title{Quantum Computing}
 \author{Marta Bubel Ewelina Kolba}
 \date{21-05-2022}
@@ -26,9 +27,18 @@ Implementation a simple version of various logic functions and the Deutsch two q
 \tableofcontents
 \newpage
 \section{Introduction to Quantum Computing}
-Quantum Computers are different from the digital computing that drives today's data centers, cloud environments, PCs and other devices. Digital computation requires data to be encoded into binary digits (bits), each of which is always in one of two definite states (0 or 1). However, quantum computation uses quantum bits (qubits), which can be in multiple states simultaneously. As a result, operations on qubits can amount to a large number of calculations in parallel. It has been shown that in theory, some specific problems should be solable in much less time on a quantum computer than using the best known algorithms for a conventional computer. Here are four key concepts that are the foundation of quantum computing.
+Quantum Computers are different from the digital computing that drives today's data centers, cloud environments, PCs and other devices. Digital computation requires data to be encoded into binary digits (bits), each of which is always in one of two definite states (0 or 1). A quantum bit is a quantum system that has two horizontal (degrees of freedom). However, quantum computation uses quantum bits (qubits), which can be in multiple states simultaneously. As a result, operations on qubits can amount to a large number of calculations in parallel. It has been shown that in theory, some specific problems should be solable in much less time on a quantum computer than using the best known algorithms for a conventional computer. Here are four key concepts that are the foundation of quantum computing.
 \subsection{Superposition}
-Classical physics can be either o or 1 bit. In quantum physics a qubit would be bot 0 and 1 and spin simultaneously up and down.
+Classical physics can be either 0 or 1 bit. In quantum physics a qubit would be both 0 and 1 and spin simultaneously up and down.
+One way to represent this with mathematics is to use two orthogonal vectors.
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{orgonal_vector.png}\\\textit{Orthogonal Vectors}
+\end{minipage}
+\end{center}
+\end{figure}
 \subsection{Entanglement}
 Entanglements gives quantum computing the ability to scale exponentially. If one qubit simultaneosly represents two states, two qubits represents four states when coupled together. They can no longer be treated independently, they now form a coupled or entangled, super state. As more qubits link together, the number of states exponentially increase, which could lead to a computer with astronomically large computing power.
 \subsection{Fragility}
@@ -127,6 +137,112 @@ Logic circuits include such devices as multiplexers, registers, arithmetic logic
 \end{figure}
 \newpage
 %--------------------------------------------
+\subsection{Quantum gates}
+%------------------------------------------
+\subsubsection{The X-Gate}
+It simply flips the bit value: 0 becomes 1 and 1 becomes 0. For qubits, it is an operation called x that does the job of the NOT.
+The X-gate is represented by the Pauli-X matrix.
+Qbit negation is defined by the following transformations:
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{x_gate.png}\\\textit{The X-Gate}
+\end{minipage}
+\end{center}
+\end{figure}
+\begin{mdframed}
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{x_code.png}\\\textit{The X-Gate Code}
+\end{minipage}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{x_gate_schema.png}\\\textit{The X-Gate Schema}
+\end{minipage}
+\end{center}
+\end{mdframed}
+%---------------------------------------------
+\subsubsection{The Y \& Z-gate }
+Similarly to the X-gate, the Y \& Z Pauli matrices also act as the Y \& Z-gates:
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=6cm]{yandz_gate.png}\\\textit{The Y \& Z-Gate}
+\end{minipage}
+\end{center}
+\end{figure}
+\begin{mdframed}
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=2cm]{yandz_code.png}\\\textit{The Y \& Z-Gate Code}
+\end{minipage}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{yandz_gate_schema.png}\\\textit{The Y \& Z-Gate Schema}
+\end{minipage}
+\end{center}
+\end{mdframed}
+%-------------------------------------------------
+\subsubsection{The CNOT-gate } 
+In quantum computers, the job of the XOR gate is done by the controlled-NOT gate. Since that's quite a long name, we usually just call it the CNOT. In Qiskit its name is cx, which is even shorter.
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{3cm}
+\centering
+\includegraphics[width=3cm]{cnot_truthtable.png}\\\textit{The CNOT-gate Truth Table}
+\end{minipage}
+\end{center}
+\end{figure}
+\newpage
+\begin{mdframed}
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{cnot_code.png}\\\textit{The CNOT-gate Code}
+\end{minipage}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{cnot_schema.png}\\\textit{The CNOT-gate Schema}
+\end{minipage}
+\end{center}
+\end{mdframed}
+%-------------------------------------------------
+\subsubsection{The Toffoli-gate} 
+This new gate is called the Toffoli. For those of you who are familiar with Boolean logic gates, it is basically an AND gate.
+In Qiskit, the Toffoli is represented with the ccx command.
+\begin{mdframed}
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{toffoli_code.png}\\\textit{The Toffoli-gate Code}
+\end{minipage}
+\begin{minipage}[b]{5cm}
+\centering
+\includegraphics[width=5cm]{toffoli_schema.png}\\\textit{The Toffoli-gate Schema}
+\end{minipage}
+\end{center}
+\end{mdframed}
+%-------------------------
+\subsubsection{The Hadamard-gate} 
+The Hadamard gate (H-gate) is a fundamental quantum gate. It allows us to move away from the poles of the Bloch sphere and create a superposition of |0⟩ and |1⟩. 
+\begin{mdframed}
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{hadamard_gate.png}\\\textit{The Hadamard-gate}
+\end{minipage}
+\begin{minipage}[b]{5cm}
+\centering
+\includegraphics[width=3cm]{hadamard_gate_transformation.png}\\\textit{The hadamard-gate}
+\end{minipage}
+\end{center}
+\end{mdframed}
+%-------------------------
+\newpage
 \section{Deutsch algorithm}
 \newpage
 %bibligrafia
@@ -140,3 +256,4 @@ Logic circuits include such devices as multiplexers, registers, arithmetic logic
 \addcontentsline{toc}{section}{References}
 \end{thebibliography}
 \end{document}
+%-------------------------------------------------
