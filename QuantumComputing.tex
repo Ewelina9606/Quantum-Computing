@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage[english]{babel}
 \usepackage{mdframed}
+\usepackage{enumitem}
 \graphicspath{ {pictures/} }
 \hypersetup{
     colorlinks,
@@ -229,7 +230,7 @@ In Qiskit, the Toffoli is represented with the ccx command.
 %-------------------------
 \subsubsection{The Hadamard-gate} 
 The Hadamard gate (H-gate) is a fundamental quantum gate. It allows us to move away from the poles of the Bloch sphere and create a superposition of |0⟩ and |1⟩. 
-\begin{mdframed}
+\begin{figure}[h]
 \begin{center}
 \begin{minipage}[b]{4cm}
 \centering
@@ -240,19 +241,57 @@ The Hadamard gate (H-gate) is a fundamental quantum gate. It allows us to move a
 \includegraphics[width=3cm]{hadamard_gate_transformation.png}\\\textit{The hadamard-gate}
 \end{minipage}
 \end{center}
-\end{mdframed}
+\end{figure}
 %-------------------------
 \newpage
 \section{Deutsch algorithm}
+The Deutsch-Jozsa algorithm, was the first example of a quantum algorithm that performs better than the best classical algorithm. 
+There is given a hidden Boolean function f, which takes as input a string of bits, and returns either 0 or 1, that is:
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=6cm]{deutch_boolean.png}\\\textit{The boolean function}
+\end{minipage}
+\end{center}
+\end{figure}
+\newline
+The property of the given Boolean function is that it is guaranteed to either be balanced or constant. A constant function returns all 0's or all 1's for any input, while a balanced function returns 0's for exactly half of all inputs and 1's for the other half. 
+The Deutch-Jozsa algorithm task is to determine whether the given function is balanced or constant.
+This problem could be solve by quantum computer provided it has the function f implemented as a quantum oracle, which maps the state |x>|y> to state |x>|y$\oplus$f(x)> (where $\oplus$ is addition modulo 2).
+\newline Below is the generic circuit for the Deutsch-Jozsa algorithm.
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=8cm]{deutch_schema.png}\\\textit{The generic circuit for the Deutch-Jozsa algorithm}
+\end{minipage}
+\end{center}
+\end{figure}
+\newline
+The steps of the algorithm:
+\begin{enumerate}[start=1]
+\item Prepare two quantum registers. The first is an n-qubit register initialized to |0⟩, and the second is a one-qubit register initialized to |1⟩.
+\item Apply a Hadamard gate to each qubit.
+\item Apply the quantum oracle |x⟩|y⟩ to |x⟩|y$\oplus$f(x)⟩.
+\item Apply a Hadamard gate to each qubit in the first register.
+\item Measure the first register. Notice that the probability of measuring which evaluates to 1 if f(x) is constant and 0 if f(x) is balanced.
+\newline
+When the oracle is constant, it has no effect on the input qubits, and the quantum states before and after querying the oracle are the same. 
+When the oracle is balanced, phase kickback adds a negative phase to exactly half states.
+The quantum state after querying the oracle is orthogonal to the quantum state before querying the oracle. Thus, in Step 4, when applying the H-gates, we must end up with a quantum state that is orthogonal to |00…0⟩. This means we should never measure the all-zero state.
+\end{enumerate}
 \newpage
 %bibligrafia
 %\section*{Bibliography}
 \begin{thebibliography}{x}
   % \bibitem{<biblabel>} <citation>
   \bibitem{citeA}
-    {\scshape Author, A}, {\itshape A title}, Journal of So-and-So, 2000.
+    {\scshape Mark Oskin}, {\itshape Quantum Computing - Lecture Notes}
   \bibitem{citeB}
-    {\scshape Someone, B}, {\itshape Another title}, Book of books, 1900.
+    {\scshape David McMahon}, {\itshape Quantum Computing Explained}, A John Wiley \& Sons, Inc., Publication, 2007.
+   \bibitem{citeC}
+    {\scshape quiskit.org}, {\itshape Qiskit 0.36.2 documentation}
 \addcontentsline{toc}{section}{References}
 \end{thebibliography}
 \end{document}
