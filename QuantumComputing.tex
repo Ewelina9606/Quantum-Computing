@@ -7,6 +7,7 @@
 \usepackage[english]{babel}
 \usepackage{mdframed}
 \usepackage{enumitem}
+\usepackage{tabto}
 \graphicspath{ {pictures/} }
 \hypersetup{
     colorlinks,
@@ -142,6 +143,7 @@ Logic circuits include such devices as multiplexers, registers, arithmetic logic
 %------------------------------------------
 \subsubsection{The X-Gate}
 It simply flips the bit value: 0 becomes 1 and 1 becomes 0. For qubits, it is an operation called x that does the job of the NOT.
+|0> --> |1> \tab |1> --> |0>
 The X-gate is represented by the Pauli-X matrix.
 Qbit negation is defined by the following transformations:
 \begin{figure}[h]
@@ -166,6 +168,10 @@ Qbit negation is defined by the following transformations:
 \end{mdframed}
 %---------------------------------------------
 \subsubsection{The Y \& Z-gate }
+Y-gate: |0> --> i|1>\tab|1> --> -i|0>
+\newline
+Z-gate: |0> --> |0>\tab|1> --> -|1>
+\newline
 Similarly to the X-gate, the Y \& Z Pauli matrices also act as the Y \& Z-gates:
 \begin{figure}[h]
 \begin{center}
@@ -187,6 +193,7 @@ Similarly to the X-gate, the Y \& Z Pauli matrices also act as the Y \& Z-gates:
 \end{minipage}
 \end{center}
 \end{mdframed}
+\newpage
 %-------------------------------------------------
 \subsubsection{The CNOT-gate } 
 In quantum computers, the job of the XOR gate is done by the controlled-NOT gate. Since that's quite a long name, we usually just call it the CNOT. In Qiskit its name is cx, which is even shorter.
@@ -198,7 +205,6 @@ In quantum computers, the job of the XOR gate is done by the controlled-NOT gate
 \end{minipage}
 \end{center}
 \end{figure}
-\newpage
 \begin{mdframed}
 \begin{center}
 \begin{minipage}[b]{4cm}
@@ -229,7 +235,7 @@ In Qiskit, the Toffoli is represented with the ccx command.
 \end{mdframed}
 %-------------------------
 \subsubsection{The Hadamard-gate} 
-The Hadamard gate (H-gate) is a fundamental quantum gate. It allows us to move away from the poles of the Bloch sphere and create a superposition of |0⟩ and |1⟩. 
+The Hadamard gate (H-gate) is a fundamental quantum gate. It allows us to move away from the poles of the Bloch sphere and create a superposition of |0⟩ and |1⟩. This gate represents rotation by $\Pi$ around the X + Z axis.
 \begin{figure}[h]
 \begin{center}
 \begin{minipage}[b]{4cm}
@@ -242,6 +248,8 @@ The Hadamard gate (H-gate) is a fundamental quantum gate. It allows us to move a
 \end{minipage}
 \end{center}
 \end{figure}
+\newline
+|0>  -->  (|0> + |1>) / sqrt(2)	 \tab |1>  -->  (|0> - |1>) / sqrt(2)	  
 %-------------------------
 \newpage
 \section{Deutsch algorithm}
