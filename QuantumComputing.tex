@@ -166,7 +166,16 @@ Qbit negation is defined by the following transformations:
 \end{minipage}
 \end{center}
 \end{mdframed}
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{8cm}
+\centering
+\includegraphics[width=8cm]{not_sym.png}\\\textit{The X-Gate simulation}
+\end{minipage}
+\end{center}
+\end{figure}
 %---------------------------------------------
+\newpage
 \subsubsection{The Y \& Z-gate }
 Y-gate: |0> --> i|1>\tab|1> --> -i|0>
 \newline
@@ -193,6 +202,18 @@ Similarly to the X-gate, the Y \& Z Pauli matrices also act as the Y \& Z-gates:
 \end{minipage}
 \end{center}
 \end{mdframed}
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{8cm}
+\centering
+\includegraphics[width=8cm]{y_sym.png}\\\textit{The Y-Gate simulation}
+\end{minipage}
+\begin{minipage}[b]{8cm}
+\centering
+\includegraphics[width=8cm]{z_sym.png}\\\textit{The Z-gate simulation}
+\end{minipage}
+\end{center}
+\end{figure}
 \newpage
 %-------------------------------------------------
 \subsubsection{The CNOT-gate } 
@@ -217,7 +238,16 @@ In quantum computers, the job of the XOR gate is done by the controlled-NOT gate
 \end{minipage}
 \end{center}
 \end{mdframed}
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{8cm}
+\centering
+\includegraphics[width=8cm]{cnot_sym.png}\\\textit{The CNOT-Gate simulation}
+\end{minipage}
+\end{center}
+\end{figure}
 %-------------------------------------------------
+\newpage
 \subsubsection{The Toffoli-gate} 
 This new gate is called the Toffoli. For those of you who are familiar with Boolean logic gates, it is basically an AND gate.
 In Qiskit, the Toffoli is represented with the ccx command.
@@ -233,6 +263,15 @@ In Qiskit, the Toffoli is represented with the ccx command.
 \end{minipage}
 \end{center}
 \end{mdframed}
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{8cm}
+\centering
+\includegraphics[width=8cm]{toffoli_sym.png}\\\textit{The Toffoli-Gate simulation}
+\end{minipage}
+\end{center}
+\end{figure}
+\newpage
 %-------------------------
 \subsubsection{The Hadamard-gate} 
 The Hadamard gate (H-gate) is a fundamental quantum gate. It allows us to move away from the poles of the Bloch sphere and create a superposition of |0⟩ and |1⟩. This gate represents rotation by $\Pi$ around the X + Z axis.
@@ -249,7 +288,27 @@ The Hadamard gate (H-gate) is a fundamental quantum gate. It allows us to move a
 \end{center}
 \end{figure}
 \newline
-|0>  -->  (|0> + |1>) / sqrt(2)	 \tab |1>  -->  (|0> - |1>) / sqrt(2)	  
+|0>  -->  (|0> + |1>) / sqrt(2)	 \tab |1>  -->  (|0> - |1>) / sqrt(2)
+\begin{mdframed}
+\begin{center}
+\begin{minipage}[b]{4cm}
+\centering
+\includegraphics[width=4cm]{hadamard_code.png}\\\textit{The Hadamard-gate Code}
+\end{minipage}
+\begin{minipage}[b]{5cm}
+\centering
+\includegraphics[width=2cm]{hadamard_schema.png}\\\textit{The Hadamard-gate Schema}
+\end{minipage}
+\end{center}
+\end{mdframed}
+\begin{figure}[h]
+\begin{center}
+\begin{minipage}[b]{8cm}
+\centering
+\includegraphics[width=8cm]{hadamard_sym.png}\\\textit{The Hadamard-Gate simulation}
+\end{minipage}
+\end{center}
+\end{figure}
 %-------------------------
 \newpage
 \section{Deutsch algorithm}
@@ -289,6 +348,170 @@ When the oracle is constant, it has no effect on the input qubits, and the quant
 When the oracle is balanced, phase kickback adds a negative phase to exactly half states.
 The quantum state after querying the oracle is orthogonal to the quantum state before querying the oracle. Thus, in Step 4, when applying the H-gates, we must end up with a quantum state that is orthogonal to |00…0⟩. This means we should never measure the all-zero state.
 \end{enumerate}
+\newpage
+\subsection{The Deutch algorithm code:}
+\scriptsize{
+\# initialization
+\newline
+import numpy as np
+\newline
+\newline
+\# importing Qiskit
+\newline
+from qiskit import IBMQ, Aer
+\newline
+from qiskit.providers.ibmq import least\_busy
+\newline
+from qiskit import QuantumCircuit, assemble, transpile
+\newline
+\newline
+\# import basic plot tools
+\newline
+from qiskit.visualization import plot\_histogram
+\newline
+n = 3
+\newline
+\newline
+const\_oracle = QuantumCircuit(n+1)
+\newline
+\newline
+output = np.random.randint(2)
+\newline
+if output == 1:
+
+\hspace{0.5cm}
+\begin{minipage}{0.3\textwidth}
+ const\_oracle.x(n)
+ \end{minipage}
+\newline
+\newline
+const\_oracle.draw()
+\newline
+balanced\_oracle = QuantumCircuit(n+1)
+\newline
+b\_str = "101"
+\newline
+\newline
+\# Place X-gates
+\newline
+for qubit in range(len(b\_str)):
+
+\hspace{0.5cm}
+\begin{minipage}{0.3\textwidth}
+if b\_str[qubit] == '1':
+ \end{minipage}
+
+\hspace{1cm}
+\begin{minipage}{0.3\textwidth}
+ balanced\_oracle.x(qubit)
+ \end{minipage}
+\newline
+\# Use barrier as divider
+\newline
+balanced\_oracle.barrier()
+\newline
+\newline
+\# Controlled-NOT gates
+\newline
+for qubit in range(n):
+
+\hspace{0.5cm}
+\begin{minipage}{0.3\textwidth}
+balanced\_oracle.cx(qubit, n)
+ \end{minipage}
+\newline
+\newline
+balanced\_oracle.barrier()
+\newline
+\newline
+\# Place X-gates
+\newline
+for qubit in range(len(b\_str)):
+
+\hspace{0.5cm}
+\begin{minipage}{0.3\textwidth}
+ if b\_str[qubit] == '1':
+ \end{minipage}
+
+\hspace{1cm}
+\begin{minipage}{0.3\textwidth}
+balanced\_oracle.x(qubit)
+ \end{minipage}
+\newline
+\newline
+dj\_circuit = QuantumCircuit(n+1, n)
+\newline
+\# Apply H-gates
+\newline
+for qubit in range(n):
+
+\hspace{0.5cm}
+\begin{minipage}{0.3\textwidth}
+dj\_circuit.h(qubit)
+ \end{minipage}
+\newline
+\newline
+\# Put qubit in state |->
+\newline
+dj\_circuit.x(n)
+\newline
+dj\_circuit.h(n)
+\newline
+dj\_circuit.draw()
+\newline
+\newline
+\# Add oracle
+\newline
+dj\_circuit += balanced\_oracle
+\newline
+\newline
+\# Repeat H-gates
+\newline
+for qubit in range(n):
+
+\hspace{0.5cm}
+\begin{minipage}{0.3\textwidth}
+dj\_circuit.h(qubit)
+ \end{minipage}
+\newline
+dj\_circuit.barrier()
+\newline
+\newline
+\# Measure
+\newline
+for i in range(n):
+
+\hspace{0.5cm}
+\begin{minipage}{0.3\textwidth}
+dj\_circuit.measure(i, i)
+ \end{minipage}
+\newline
+\newline
+\# Display circuit
+\newline
+dj\_circuit.draw()
+\newline
+\newline
+\# use local simulator
+\newline
+aer\_sim = Aer.get\_backend('aer\_simulator')
+\newline
+qobj = assemble(dj\_circuit, aer\_sim)
+\newline
+results = aer\_sim.run(qobj).result()
+\newline
+answer = results.get\_counts()
+\newline
+\#plot\_histogram(answer)
+}
+\newpage
+\subsection{The Deutch algorithm scheme:}
+\begin{figure}[h]
+\begin{minipage}[b]{8cm}
+\centering
+\includegraphics[width=12cm]{deutch_schema2.png}\\\textit{The Deutch Algorithm scheme}
+\end{minipage}
+\end{figure}
 \newpage
 %bibligrafia
 %\section*{Bibliography}
